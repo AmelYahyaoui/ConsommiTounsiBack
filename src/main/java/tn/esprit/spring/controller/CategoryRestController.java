@@ -20,6 +20,8 @@ import tn.esprit.spring.entities.Category;
 
 import tn.esprit.spring.service.ICategoryService;
 
+
+
 @RestController
 @CrossOrigin
 public class CategoryRestController {
@@ -28,10 +30,10 @@ public class CategoryRestController {
 	ICategoryService CS;
 	
 	//  http://localhost:9090/SpringMVC/servlet/add-category
-//		@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
-		@PostMapping("/add-category")
+
+		@PostMapping("/add-category") 
 		@ResponseBody
-		public Category addProduct(@RequestBody Category c) {
+		public Category addCategory(@RequestBody Category c) {
 		Category cat = CS.addCategory(c);
 		return cat;
 		}

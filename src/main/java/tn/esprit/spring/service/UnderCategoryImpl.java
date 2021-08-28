@@ -26,8 +26,8 @@ public class UnderCategoryImpl implements IUnderCategory {
 	
 	
 	@Override
-	public UnderCategory addUndercategory(UnderCategory uc,int idcategory) {
-		Category cat=cr.findByIdCategory(idcategory);
+	public UnderCategory addUndercategory(UnderCategory uc,int idCategory) {
+		Category cat=cr.findByIdCategory(idCategory);
 		uc.setCategory(cat);
 		 UCR.save(uc);
 		 return uc;

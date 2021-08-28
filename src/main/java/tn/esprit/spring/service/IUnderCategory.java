@@ -8,7 +8,7 @@ import tn.esprit.spring.entities.UnderCategory;
 
 
 public interface IUnderCategory {
-public UnderCategory addUndercategory(UnderCategory uc,int idcategory);
+public UnderCategory addUndercategory(UnderCategory uc,int idCategory);
 public void deleteUnderCategory(int idUnderCategory);
 public UnderCategory upadateUndercategory(UnderCategory uc);
 public List<UnderCategory> showAllunderCategories();
