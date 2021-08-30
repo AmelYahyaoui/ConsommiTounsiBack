@@ -114,7 +114,7 @@ public class ProductControl {
 	
 	
 	
-	//http://localhost:9090/SpringMVC/servlet/remove-product/{productId}
+	//http://localhost:9090/SpringMVC/servlet/		
 //	@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
 	@DeleteMapping("/remove-product/{productId}")
 	@ResponseBody

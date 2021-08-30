@@ -30,10 +30,10 @@ public class Publicity implements Serializable {
 	private Date startDatePublicity ;
 	@Temporal (TemporalType.DATE)
 	private Date endDatePublicity ;
-	@Enumerated (EnumType.STRING)
-	private TargetPublicity targetPublicity ;
-	@Enumerated (EnumType.STRING)
-	private ChannelPublicity channelPublicity ;
+	
+	private String TargetPublicity ;
+	
+	private String ChannelPublicity  ;
 	private float costPublicity ;
 	private boolean statusPublicity ;
 	private String mailOwnerPublicity ;
@@ -67,17 +67,18 @@ public class Publicity implements Serializable {
 	public void setEndDatePublicity(Date endDatePublicity) {
 		this.endDatePublicity = endDatePublicity;
 	}
-	public TargetPublicity getTargetPublicity() {
-		return targetPublicity;
+	
+	public String getTargetPublicity() {
+		return TargetPublicity;
 	}
-	public void setTargetPublicity(TargetPublicity targetPublicity) {
-		this.targetPublicity = targetPublicity;
+	public void setTargetPublicity(String targetPublicity) {
+		TargetPublicity = targetPublicity;
 	}
-	public ChannelPublicity getChannelPublicity() {
-		return channelPublicity;
+	public String getChannelPublicity() {
+		return ChannelPublicity;
 	}
-	public void setChannelPublicity(ChannelPublicity channelPublicity) {
-		this.channelPublicity = channelPublicity;
+	public void setChannelPublicity(String channelPublicity) {
+		ChannelPublicity = channelPublicity;
 	}
 	public float getCostPublicity() {
 		return costPublicity;
@@ -138,55 +139,13 @@ public class Publicity implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	
-	public Publicity(int idPublicity, String namePublicity, Date startDatePublicity, Date endDatePublicity,
-			TargetPublicity targetPublicity, ChannelPublicity channelPublicity, float costPublicity,
-			boolean statusPublicity, String mailOwnerPublicity, int phoneOwnerPublicity, String typePublicity,
-			String descriptionPublicity, int initialViewNumber, int finalViewNumber, String fileName) {
-		super();
-		this.idPublicity = idPublicity;
-		this.namePublicity = namePublicity;
-		this.startDatePublicity = startDatePublicity;
-		this.endDatePublicity = endDatePublicity;
-		this.targetPublicity = targetPublicity;
-		this.channelPublicity = channelPublicity;
-		this.costPublicity = costPublicity;
-		this.statusPublicity = statusPublicity;
-		this.mailOwnerPublicity = mailOwnerPublicity;
-		this.phoneOwnerPublicity = phoneOwnerPublicity;
-		this.typePublicity = typePublicity;
-		this.descriptionPublicity = descriptionPublicity;
-		InitialViewNumber = initialViewNumber;
-		this.finalViewNumber = finalViewNumber;
-		this.fileName = fileName;
-	}
-	public Publicity(String namePublicity, Date startDatePublicity, Date endDatePublicity,
-			TargetPublicity targetPublicity, ChannelPublicity channelPublicity, float costPublicity,
-			boolean statusPublicity, String mailOwnerPublicity, int phoneOwnerPublicity, String typePublicity,
-			String descriptionPublicity, int initialViewNumber, int finalViewNumber, String fileName) {
-		super();
-		this.namePublicity = namePublicity;
-		this.startDatePublicity = startDatePublicity;
-		this.endDatePublicity = endDatePublicity;
-		this.targetPublicity = targetPublicity;
-		this.channelPublicity = channelPublicity;
-		this.costPublicity = costPublicity;
-		this.statusPublicity = statusPublicity;
-		this.mailOwnerPublicity = mailOwnerPublicity;
-		this.phoneOwnerPublicity = phoneOwnerPublicity;
-		this.typePublicity = typePublicity;
-		this.descriptionPublicity = descriptionPublicity;
-		InitialViewNumber = initialViewNumber;
-		this.finalViewNumber = finalViewNumber;
-		this.fileName = fileName;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((ChannelPublicity == null) ? 0 : ChannelPublicity.hashCode());
 		result = prime * result + InitialViewNumber;
-		result = prime * result + ((channelPublicity == null) ? 0 : channelPublicity.hashCode());
+		result = prime * result + ((TargetPublicity == null) ? 0 : TargetPublicity.hashCode());
 		result = prime * result + Float.floatToIntBits(costPublicity);
 		result = prime * result + ((descriptionPublicity == null) ? 0 : descriptionPublicity.hashCode());
 		result = prime * result + ((endDatePublicity == null) ? 0 : endDatePublicity.hashCode());
@@ -198,10 +157,10 @@ public class Publicity implements Serializable {
 		result = prime * result + phoneOwnerPublicity;
 		result = prime * result + ((startDatePublicity == null) ? 0 : startDatePublicity.hashCode());
 		result = prime * result + (statusPublicity ? 1231 : 1237);
-		result = prime * result + ((targetPublicity == null) ? 0 : targetPublicity.hashCode());
 		result = prime * result + ((typePublicity == null) ? 0 : typePublicity.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -211,9 +170,17 @@ public class Publicity implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Publicity other = (Publicity) obj;
+		if (ChannelPublicity == null) {
+			if (other.ChannelPublicity != null)
+				return false;
+		} else if (!ChannelPublicity.equals(other.ChannelPublicity))
+			return false;
 		if (InitialViewNumber != other.InitialViewNumber)
 			return false;
-		if (channelPublicity != other.channelPublicity)
+		if (TargetPublicity == null) {
+			if (other.TargetPublicity != null)
+				return false;
+		} else if (!TargetPublicity.equals(other.TargetPublicity))
 			return false;
 		if (Float.floatToIntBits(costPublicity) != Float.floatToIntBits(other.costPublicity))
 			return false;
@@ -255,8 +222,6 @@ public class Publicity implements Serializable {
 			return false;
 		if (statusPublicity != other.statusPublicity)
 			return false;
-		if (targetPublicity != other.targetPublicity)
-			return false;
 		if (typePublicity == null) {
 			if (other.typePublicity != null)
 				return false;
@@ -264,7 +229,31 @@ public class Publicity implements Serializable {
 			return false;
 		return true;
 	}
-
+	public Publicity(int idPublicity, String namePublicity, Date startDatePublicity, Date endDatePublicity,
+			String targetPublicity, String channelPublicity, float costPublicity, boolean statusPublicity,
+			String mailOwnerPublicity, int phoneOwnerPublicity, String typePublicity, String descriptionPublicity,
+			int initialViewNumber, int finalViewNumber, String fileName) {
+		super();
+		this.idPublicity = idPublicity;
+		this.namePublicity = namePublicity;
+		this.startDatePublicity = startDatePublicity;
+		this.endDatePublicity = endDatePublicity;
+		TargetPublicity = targetPublicity;
+		ChannelPublicity = channelPublicity;
+		this.costPublicity = costPublicity;
+		this.statusPublicity = statusPublicity;
+		this.mailOwnerPublicity = mailOwnerPublicity;
+		this.phoneOwnerPublicity = phoneOwnerPublicity;
+		this.typePublicity = typePublicity;
+		this.descriptionPublicity = descriptionPublicity;
+		InitialViewNumber = initialViewNumber;
+		this.finalViewNumber = finalViewNumber;
+		this.fileName = fileName;
+	}
+	
+	
+	
+	
 	
 	
 	
