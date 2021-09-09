@@ -16,3 +16,4 @@ public class BarcodeResponse {
 
 
 }
+//model de barcode

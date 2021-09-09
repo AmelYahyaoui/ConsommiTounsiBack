@@ -30,8 +30,8 @@ public class UnderCategoryRestController {
 	UnderCategoryImpl uci;
 
 	
-	//http://localhost:9090/SpringMVC/servlet/add-under-category
-//	@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
+	//http://localhost:9091/SpringMVC/servlet/add-underCategory
+
 		@PostMapping("/add-underCategory/{CategoryId}")
 		@ResponseBody
 		public UnderCategory addUndercategory(@RequestBody UnderCategory uc,@PathVariable("CategoryId") int CategorytId) {
@@ -40,8 +40,7 @@ public class UnderCategoryRestController {
 		}
 		
 		
-		//http://localhost:9090/SpringMVC/servlet/remove-under-category/{underCategorytId}
-//	@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
+		//http://localhost:9091/SpringMVC/servlet/remove-under-category/{underCategorytId}
 		@DeleteMapping("/remove-under-category/{underCategorytId}")
 		@ResponseBody
 		public void removeUnderCategory(@PathVariable("underCategorytId") int ucId) {
@@ -50,7 +49,7 @@ public class UnderCategoryRestController {
 		
 		
 		
-		//http://localhost:9090/SpringMVC/servlet/update-under-category
+		//http://localhost:9091/SpringMVC/servlet/update-under-category
 		@PutMapping("/update-under-category")
 		@ResponseBody
 		public UnderCategory updateUnderCategory(@RequestBody UnderCategory uc) {
@@ -59,30 +58,24 @@ public class UnderCategoryRestController {
 		}
 		
 		
-		//http://localhost:9090/SpringMVC/servlet/show-all-under-categories
+		//http://localhost:9091/SpringMVC/servlet/show-all-under-categories
 		@GetMapping("/show-all-under-categories")
 		@ResponseBody
 		public List<UnderCategory> getAllUndercategories(){
 			List <UnderCategory> list=IuC.showAllunderCategories();
 			return list;
 		}
-		//http://localhost:9091/SpringMVC/servlet/affect-product-to-under-category/{Idp}/{Iduc}
-//		@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
-		@PutMapping("/affect-product-to-under-category/{Idp}/{Iduc}")
-		public void affecterProduitARayon(@PathVariable(value = "Idp") int idProduct,
-				@PathVariable(value = "Iduc") int idUnderCategory) {
-			IuC.assignProductToUnderCategory(idUnderCategory, idProduct);
-			
-		}
+	
 		
 
-		//http://localhost:9090/SpringMVC/servlet/GetByIdUnderCat/{underCategorytId}
+		//http://localhost:9091/SpringMVC/servlet/GetByIdUnderCat/{underCategorytId}
 		@GetMapping("/GetByIdUnderCat/{underCategorytId}")
 		@ResponseBody
 		public UnderCategory getById(@PathVariable("underCategorytId")int id){
 			return IuC.findById(id);
 		}
 		
+		//http://localhost:9091/SpringMVC/servlet/underCatProds/{idUnderCat}
 		@GetMapping("/underCatProds/{idUnderCat}")
 		 public List<Product> getProdsByIdUnderCat(@PathVariable("idUnderCat") int iddUnderCat){
 				

@@ -66,9 +66,10 @@ public class ProductControl {
   
   
   @Autowired
-	ProductRepository pr;
+	ProductRepository pr; 
 	
-	//http://localhost:9090/SpringMVC/servlet/show-all-products
+	//http://localhost:9091/SpringMVC/servlet/show-all-products
+  //st3mlneha fy tous les  produit
 	@GetMapping("/show-all-products")
 	@ResponseBody
 	public List<Product> getAllProducts(){
@@ -76,7 +77,8 @@ public class ProductControl {
 		return list;
 	}
 	
-	//http://localhost:9090/SpringMVC/servlet/GetByOneName/{productName}
+	//http://localhost:9091/SpringMVC/servlet/GetByOneName/{productName}
+	//st3melneha fy recherche byname lel produit wa7da
 	@GetMapping("/GetByOneName/{productName}")
 	@ResponseBody 
 	public Product RetrieveByName(@PathVariable("productName")String nameProd){
@@ -84,7 +86,8 @@ public class ProductControl {
 	}
 	
 	
-	//http://localhost:9090/SpringMVC/servlet/GetById/{productId}
+	//http://localhost:9091/SpringMVC/servlet/GetById/{productId}
+	//st3mleha fy affichage mte3 component edit product
 	@GetMapping("GetById/{productId}")
 	@ResponseBody 
 	public Product RetrieveById(@PathVariable("productId")int id){
@@ -92,7 +95,8 @@ public class ProductControl {
 	}
 	
 	
-	//http://localhost:9090/SpringMVC/servlet/ShowAllByName/{productName}
+	//http://localhost:9091/SpringMVC/servlet/ShowAllByName/{productName}
+	//recherche barcha produiyet 3ndhom nafs name
 	@GetMapping("ShowAllByName/{productName}")
 	@ResponseBody 
 	public List<Product> RetrieveAllByName(@PathVariable("productName")String name){
@@ -102,10 +106,10 @@ public class ProductControl {
 
 	
 	
-	//http://localhost:9090/SpringMVC/servlet/add-product
-
-//	@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
+	//http://localhost:9091/SpringMVC/servlet/add-product/{iduc}
+	//ajouter produit
 	@PostMapping("/add-product/{iduc}")
+	//uc:under categorie
 	@ResponseBody
 	public Product addProduct(@RequestBody Product p,@PathVariable("iduc")int iduc) {
 	Product prod = productService.addProduct(p,iduc);
@@ -114,8 +118,8 @@ public class ProductControl {
 	
 	
 	
-	//http://localhost:9090/SpringMVC/servlet/		
-//	@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
+	//http://localhost:9091/SpringMVC/servlet/remove-product/{productId}	
+	//delet product
 	@DeleteMapping("/remove-product/{productId}")
 	@ResponseBody
 	public void removeProduct(@PathVariable("productId") int id) {
@@ -126,10 +130,8 @@ public class ProductControl {
 
 	
 
-	//http://localhost:9090/SpringMVC/servlet/update-Product
-
-//	@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
-
+	//http://localhost:9091/SpringMVC/servlet/update-Product
+//update 
 	@PutMapping("/update-Product/{id}")
 	@ResponseBody
 	public Product updateProduct(@PathVariable(value = "id") int id,@RequestBody Product p) {
@@ -137,69 +139,9 @@ public class ProductControl {
 			
 	}
 	
-	//http://localhost:9090/SpringMVC/servlet/affect-image-to-product/{Idp}/{Idimage}
-//	@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
-			@PutMapping("/affect-image-to-product/{Idp}/{Idimage}")
-			public void affecterProduitARayon(@PathVariable(value = "Idp") int Idp,
-					@PathVariable(value = "Idimage") int Idimage) {
-				 IPS.assignImageToProduct(Idp, Idimage);
-				
-			}
-  
-  //http://localhost:9090/SpringMVC/servlet/gain-product
-	@GetMapping("/gain-product")
-	@ResponseBody
-	public List<String> getgainproduct() {
-	return pr.getgainproduct();
-			
-	}
 	
-	//http://localhost:9090/SpringMVC/servlet/total-gain-product
-		@GetMapping("/total-gain-product")
-		@ResponseBody
-		public float gettotalgainproduct() {
-		return pr.gettotalgainproduct();
-		}
 		
-		//http://localhost:9090/SpringMVC/servlet/total-achat
-		@GetMapping("/total-achat")
-		@ResponseBody
-		public float getallcostproduct() {
-		return pr.getallcostproduct();
-		}
-		
-		//http://localhost:9090/SpringMVC/servlet/total-vente
-		@GetMapping("/total-vente")
-		@ResponseBody
-		public float getallbuyproduct() {
-		return pr.getallbuyproduct();
-		}
-		
-		
-		//http://localhost:9090/SpringMVC/servlet/Most-Expensive
-		@GetMapping("/Most-Expensive")
-		@ResponseBody
-		public float MostExpensiveProduct() {
-			return pr.MostExpensiveProduct();
-			}
-		
-//		//http://localhost:9090/SpringMVC/servlet/getproduct-by/{idUnderCategory}/{titleProduct}
-//		@PutMapping("/getproduct-by/{idUnderCategory}/{titleProduct}")
-//		@ResponseBody
-//		public List<Product> GetproductByidUcandTitle(@PathVariable("idUnderCategory")int  idUnderCategory,@PathVariable("titleProduct")String titleProduct) {
-//		return pr.GetproductByidUcandTitle(idUnderCategory, titleProduct);
-//				
-//		}
-		
-		@GetMapping("/GETALLPRODUCTS")
-		public List<Product> getAllProds(){
-			System.out.println("Get All Products ...");
-			List<Product>products=new ArrayList<>();
-			PR.findAll().forEach(products :: add);
-			return products;
-		}
-		
-		
+		//tjib les image kolla mta3 les produits 
 		@GetMapping("/GETALLS")
 		public ResponseEntity<List<String>> getALL(){
 			 List<String> listArt = new ArrayList<String>();
@@ -231,7 +173,8 @@ public class ProductControl {
 					return new ResponseEntity<List<String>>(listArt,HttpStatus.OK);
 		}
 		
-		// http://localhost:9090/SpringMVC/servlet/Imgarticles/{id}
+		// http://localhost:9091/SpringMVC/servlet/Imgarticles/{id}
+		//Imgarticles:njibo beha l'image mte3 produit
 		@GetMapping(path="/Imgarticles/{id}")
 		 public byte[] getPhoto(@PathVariable("id") int id) throws Exception{
 			 Product prod  = pr.findById(id).get();
@@ -246,13 +189,11 @@ public class ProductControl {
 			return ResponseEntity.ok().body(prod);
 		}
 		
-		
-		
 		 @PostMapping("/Productss")
 		 public ResponseEntity<Response> createProduct (@RequestParam("file") MultipartFile file,int id,
 				 @RequestParam("article") String product) throws JsonParseException , JsonMappingException , Exception
 		 {
-			 System.out.println("Ok .............");
+			 
 	        Product prod = new ObjectMapper().readValue(product, Product.class);
 	        UnderCategory uc=ucr.findById(id).get();
 	        prod.setUnderCategory(uc);
@@ -289,16 +230,6 @@ public class ProductControl {
 		 }
 		 
 		 
-		 @DeleteMapping("/products/{id}")
-			public Map<String, Boolean> deleteProduct(@PathVariable(value = "id") int prodId)
-					throws ResourceNotFoundException {
-				Product product = pr.findById(prodId)
-						.orElseThrow(() -> new ResourceNotFoundException("Article not found  id :: " + prodId));
-				pr.delete(product);
-				Map<String, Boolean> response = new HashMap<>();
-				response.put("deleted", Boolean.TRUE);
-				return response;
-			}
 		 
 		 
 }

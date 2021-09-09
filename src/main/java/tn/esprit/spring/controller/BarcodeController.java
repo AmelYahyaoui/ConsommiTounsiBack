@@ -31,15 +31,10 @@ public class BarcodeController {
         mDynamsoftBarcode = dynamsoft;
         mZXingBarcode = zxing;
     }
-    
-    //http://localhost:9090/SpringMVC/servlet/dynamsoft
-
-//    @PostMapping(value = "/dynamsoft", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public BarcodeResponse getDynamsoft(@RequestPart MultipartFile file) throws Exception {
-//        return mDynamsoftBarcode.decode(file.getOriginalFilename(), file.getInputStream());
-//    }
+   
 
 
+          //http://localhost:9091/SpringMVC/servlet/zxing
     @PostMapping("/zxing")
     public BarcodeResponse getZXing(@RequestPart MultipartFile file) throws Exception {
         return mZXingBarcode.decode(file.getOriginalFilename(), file.getInputStream());

@@ -29,7 +29,7 @@ public class CategoryRestController {
 	@Autowired
 	ICategoryService CS;
 	
-	//  http://localhost:9090/SpringMVC/servlet/add-category
+	//  http://localhost:9091/SpringMVC/servlet/add-category
 
 		@PostMapping("/add-category") 
 		@ResponseBody
@@ -39,8 +39,7 @@ public class CategoryRestController {
 		}
 		
 		
-		//   http://localhost:9090/SpringMVC/servlet/remove-category/{categorytId}
-//		@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
+		//   http://localhost:9091/SpringMVC/servlet/remove-category/{categorytId}
 		@DeleteMapping("/remove-category/{categorytId}")
 		@ResponseBody
 		public void removeCategory(@PathVariable("categorytId") int catId) {
@@ -49,16 +48,16 @@ public class CategoryRestController {
 		
 		
 		
-		//  http://localhost:9090/SpringMVC/servlet/update-category
+		//  http://localhost:9091/SpringMVC/servlet/update-category
 		@PutMapping("/update-category")
 		@ResponseBody
-		public Category updateProduct(@RequestBody Category c) {
+		public Category updateCategory(@RequestBody Category c) {
 		return CS.updateCategory(c);
 				
 		}
 		
 		
-		//http://localhost:9090/SpringMVC/servlet/show-all-categories
+		//http://localhost:9091/SpringMVC/servlet/show-all-categories
 		@GetMapping("/show-all-categories")
 		@ResponseBody
 		public List<Category> getAllProducts(){
@@ -66,27 +65,7 @@ public class CategoryRestController {
 			return list;
 		}
 		
-		//http://localhost:9090/SpringMVC/servlet/affect-undercategory-to-category/{Iduc}/{Idc}
-//		@PreAuthorize("hasAuthority('ADMINISTRATOR') or hasAuthority('DEPARTMENTMANAGER')")
-		@PutMapping("affect-undercategory-to-category/{Iduc}/{Idc}")
-		public void affecterProduitARayon(@PathVariable(value = "Iduc") int Iduc,
-				@PathVariable(value = "Idc") int idCategory) {
-			CS.affectUnderCategoryToCategory(idCategory, Iduc);
-			
-		}
-		//http://localhost:9090/SpringMVC/servlet/retrieve-by-name/{nameCat}
-			@GetMapping("/retrieve-by-name/{nameCat}")
-			@ResponseBody
-			public List<Category> retrieveByName(@PathVariable(value = "nameCat")String nameCategory){
-				List <Category> list=CS.findByName(nameCategory);
-				return list;
-			}
-			
-		//  http://localhost:9090/SpringMVC/servlet/retrieve-cat-by-id/{id}
-			@GetMapping("/retrieve-cat-by-id/{id}")
-			@ResponseBody
-			public Category retrieveCatById(@PathVariable(value = "id")int id){
-				return CS.findByIdCat(id);
-			}
+	
+		
 	
 }

@@ -68,22 +68,22 @@ public class PublicityControl {
 	}
 	
 	
-	//http://localhost:9090/SpringMVC/servlet/get-by-Name-all-publicities-by-name/{PubName}
+	//http://localhost:9091/SpringMVC/servlet/get-by-Name-all-publicities-by-name/{PubName}
+	//tjib les publicité par nom 
 	@GetMapping("/get-by-Name-all-publicities-by-name/{PubName}")
 	@ResponseBody 
 	public List<Publicity> RetrieveByName(@PathVariable("PubName")String namePub){
 		return PS.GetPublicitiesByName(namePub);
 	}
 	
-	//http://localhost:9090/SpringMVC/servlet/get-by-id-publicity/{publicityId}
+	//http://localhost:9091/SpringMVC/servlet/get-by-id-publicity/{publicityId}
 	@GetMapping("get-by-id-publicity/{publicityId}")
 	@ResponseBody 
 	public Publicity RetrieveById(@PathVariable("publicityId")int id){
 		return PS.GetPublicityById(id);
 	}
 	
-	//http://localhost:9090/SpringMVC/servlet/add-publicity
-//	@PreAuthorize("hasAuthority('ADMINISTRATOR')")
+	//http://localhost:9091/SpringMVC/servlet/add-publicity
 	@PostMapping("/add-publicity")
 	@ResponseBody
 	public Publicity addPublicity(@RequestBody Publicity pub) {
@@ -91,7 +91,7 @@ public class PublicityControl {
 	return publicty;
 	}
 	
-	//http://localhost:9090/SpringMVC/servlet/remove-publicity/{pubId}
+	//http://localhost:9091/SpringMVC/servlet/remove-publicity/{pubId}
 
 	@DeleteMapping("/remove-publicity/{pubId}")
 	@ResponseBody
@@ -100,7 +100,7 @@ public class PublicityControl {
 	}
 	
 	
-	//http://localhost:9090/SpringMVC/servlet/update-publicity
+	//http://localhost:9091/SpringMVC/servlet/update-publicity
 
 	@PutMapping("/update-publicity/{Idpublicity}")
 	@ResponseBody
@@ -110,37 +110,8 @@ public class PublicityControl {
 	}
 	
 
-	
-	
-//	http://localhost:9090/SpringMVC/servlet/CalculateTotalCost/{Canal}/{Sdate}/{Fdate}/{Tpub}
-	
-	@PostMapping("/CalculateTotalCost/{Canal}/{Sdate}/{Fdate}/{Tpub}")
-	public float CalculateTotalCost(@PathVariable(value = "Canal") String canal,@PathVariable(value = "Sdate") String dateDebut,
-			@PathVariable(value = "Fdate")String dateFin,@PathVariable(value = "Tpub") String typePub) throws ParseException {
-		return PublicityServiceImpl.CalculeCoutTotalPub(canal, dateDebut, dateFin, typePub);
-	
-}
-	
-//	http://localhost:9090/SpringMVC/servlet/costOnNbrDays/{Sdate}/{Fdate}
 
-	@PostMapping("/costOnNbrDays/{Sdate}/{Fdate}")
-	public float costOnNbrDays(@PathVariable(value = "Sdate") String dateDebut,
-			@PathVariable(value = "Fdate")String dateFin) throws ParseException {
-		return PublicityServiceImpl.costOnNbrDays(dateDebut, dateFin);
-	}
-
-
-
-@GetMapping("/GETALLPUBLICITIES")
-public List<Publicity> getAllPublicities(){
-	System.out.println(" getAllPublicities ...");
-	List<Publicity>publicities=new ArrayList<>();
-	pr.findAll().forEach(publicities :: add);
-	return publicities;
-}
-
-
-
+// tjib les images mta3 les pub kola 
 @GetMapping("/GETALLPublicitiesImages")
 public ResponseEntity<List<String>> getALL(){
 	 List<String> listArt = new ArrayList<String>();
@@ -172,72 +143,18 @@ public ResponseEntity<List<String>> getALL(){
 			return new ResponseEntity<List<String>>(listArt,HttpStatus.OK);
 }
 
-
-
+////http://localhost:9091/SpringMVC/servlet/ImgPublcities/{id}
+// tjib image mta3 publicité par idPub
 		@GetMapping(path="/ImgPublcities/{id}")
 		 public byte[] getPhoto(@PathVariable("id") int id) throws Exception{
 			 Publicity pub  = pr.findById(id).get();
 			 return Files.readAllBytes(Paths.get(context.getRealPath("/Images/")+pub.getFileName()));
 		 }
 		
-		@GetMapping("/publ/{id}")
-		public ResponseEntity<Publicity> getArticleById(@PathVariable(value = "id") int Id)
-				throws ResourceNotFoundException {
-			Publicity pub = pr.findById(Id)
-					.orElseThrow(() -> new ResourceNotFoundException("Categorie not found for this id :: " + Id));
-			return ResponseEntity.ok().body(pub);
-		}
 		
 		
 		
 		
-		@PostMapping("/PostPubImage")
-		 public ResponseEntity<Response> createProduct (@RequestParam("file") MultipartFile file,
-				 @RequestParam("article") String product) throws JsonParseException , JsonMappingException , Exception
-		 {
-			 System.out.println("Ok .............");
-	        Publicity prod = new ObjectMapper().readValue(product, Publicity.class);
-	        boolean isExit = new File(context.getRealPath("/Images/")).exists();
-	        if (!isExit)
-	        {
-	        	new File (context.getRealPath("/Images/")).mkdir();
-	        	System.out.println("mk dir.............");
-	        }
-	        String filename = file.getOriginalFilename();
-	        String newFileName = FilenameUtils.getBaseName(filename)+"."+FilenameUtils.getExtension(filename);
-	        File serverFile = new File (context.getRealPath("/Images/"+File.separator+newFileName));
-	        try
-	        {
-	        	System.out.println("Image");
-	        	 FileUtils.writeByteArrayToFile(serverFile,file.getBytes());
-	        	 
-	        }catch(Exception e) {
-	        	e.printStackTrace();
-	        }
-
-	       
-	        prod.setFileName(newFileName);
-	        Publicity art = pr.save(prod);
-	        if (art != null)
-	        {
-	        	return new ResponseEntity<Response>(new Response ("Added With Image Succuess <3"),HttpStatus.OK);
-	        }
-	        else
-	        {
-	        	return new ResponseEntity<Response>(new Response ("Article not saved"),HttpStatus.BAD_REQUEST);	
-	        }
-		 }
-		
-		@DeleteMapping("/publiciiiity/{id}")
-		public Map<String, Boolean> deleteProduct(@PathVariable(value = "id") int pubId)
-				throws ResourceNotFoundException {
-			Publicity p = pr.findById(pubId)
-					.orElseThrow(() -> new ResourceNotFoundException("Article not found  id :: " + pubId));
-			pr.delete(p);
-			Map<String, Boolean> response = new HashMap<>();
-			response.put("deleted", Boolean.TRUE);
-			return response;
-		}
 		 
 		 
 	
